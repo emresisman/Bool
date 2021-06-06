@@ -23,6 +23,14 @@ public class BallMovement : MonoBehaviour
         LevelGenerator.Instance.LevelIsUp += EnableShooting;
         LevelGenerator.Instance.LevelIsUp += IncreaseMoveSpeed;
     }
+    private void FixedUpdate()
+    {
+        if (increase) timer += moveSpeed * Time.deltaTime;
+        else timer += moveSpeed * Time.deltaTime;
+        if (!shootEnabled) shootTime += Time.deltaTime;
+        if (shootTime > 2.0f) GameIsEnd();
+        BallMoving(pL.position, pR.position, moveSpeed);
+    }
 
     void Update()
     {
@@ -31,11 +39,6 @@ public class BallMovement : MonoBehaviour
         {
             ShootBall();
         }
-        if (increase) timer += moveSpeed * Time.deltaTime;
-        else timer += moveSpeed * Time.deltaTime;
-        if (!shootEnabled) shootTime += Time.deltaTime;
-        if (shootTime > 2.0f) GameIsEnd();
-        BallMoving(pL.position, pR.position, moveSpeed);
     }
 
     private void IncreaseCalc()
